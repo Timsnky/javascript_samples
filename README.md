@@ -1,2 +1,2 @@
 # javascript_samples
-Sample javascript codes from a wide rage of assignments
+Sample javascript codes from a wide range of assignments
