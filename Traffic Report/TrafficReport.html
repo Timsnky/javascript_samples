@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<body onload = "formatString('New York');">
+		<p>		
+			<h3>Traffic Reports</h3>
+		</p>
+		<p>
+			Enter the Name of the City: <input type="text" name="cityName" onchange="formatString(this.value)">
+		</p><br></br>
+		<p>
+			<div id="trafficOutput">RSS-feed will be listed here...</div>
+		</p>
+		<script>
+			function formatString(city) {
+				
+				if (city.length == 0)
+				{
+					alert("Enter the Name of the City");
+				    document.getElementById("trafficOutput").innerHTML="";
+				    return;
+				}
+				city = city.toLowerCase();
+				var cityName = city.replace(/\s/g, '');
+			    if (window.XMLHttpRequest)
+			    {
+			        xmlhttp=new XMLHttpRequest();
+			    }
+			    else
+			    {
+			        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			     }
+			     xmlhttp.onreadystatechange=function()
+			     {
+			        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			        {
+			         if(xmlhttp.statusText == "Not Found")
+			         {
+			        	document.getElementById("trafficOutput").innerHTML="No RSS Feeds Found of Invalid City" 
+			         }else if(xmlhttp.statusText == "OK")
+			         {
+			        	document.getElementById("trafficOutput").innerHTML=xmlhttp.responseText; 
+			         }
+			        }
+			      }
+			      var cityLink = "http://cityrss.traffic.com/feeds/rss_" + cityName;
+			      xmlhttp.open("GET","TrafficReport.php?cityLink="+cityLink,true);
+			      xmlhttp.send();			      
+			}
+		</script>
+	
+	</body>
+</html>

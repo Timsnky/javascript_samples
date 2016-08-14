@@ -1,0 +1,233 @@
+ onload = "trafficInfo('albany-newyork');"
+
+<!DOCTYPE html>
+<html>
+	<!-- call addDates function once form is loaded -->
+	<body onload = "addDates();"    >
+	
+	<h3> Age Calculator</h3>
+	<!-- create the titles for the selection lists -->
+	<table>
+		<tr>
+			<td>Date</td>
+			<td>Month</td>
+			<td>Year</td>
+		</tr>
+		<tr>
+		<!-- creating the date selection list -->
+		<td><select id = "dates"></select></td>
+		<!-- creating the months selection list -->
+		<td><select id = "months">
+				<option>January</option>
+				<option>February</option>
+				<option>March</option>
+				<option>April</option>
+				<option>May</option>
+				<option>June</option>
+				<option>July</option>
+				<option>August</option>
+				<option>September</option>
+				<option>October</option>
+				<option>November</option>
+				<option>December</option>
+			</select>
+		</td>
+		<!-- creating the years selection list -->
+		<td><select id = "years"></select></td>
+		</tr>
+	</table>
+	<!-- creating the button and the three textboxes to display the output -->
+	<p>
+	<button onClick = "getValues()" > Compute Values</button>
+	</p>
+	<p>
+	Age: <input type="text" id="age" style="width:400px"  ><br><br>
+	</p>
+	<p>
+	Length of Life: <input type="text" id="lifeLength" style="width:600px" ><br><br>
+	</p>
+	<p>
+	BirthDay: <input type="text" id="birthday" style="width:500px" ><br><br>
+	</p>
+	
+	<!-- addDates function that adds the options on the dates and years selection lists -->
+	<script type="text/javascript">
+		function addDates(){
+			var d = 0;
+			var list = document.getElementById("dates");
+			while (d < 31){
+				var dayOption = document.createElement("option");
+				dayOption.text = d + 1;
+				list.options[d] = dayOption;
+				d = d+1;
+			}	
+			
+			var y = 0;
+			var list = document.getElementById("years");
+			while (y < 61){
+				var yearOption = document.createElement("option");
+				yearOption.text = y + 1950;
+				list.options[y] = yearOption;
+				y = y+1;
+			}
+		}
+	</script>
+	
+<!-- 	Function that handles the computation and displays. It first gets the selected values from the selection lists and also gets the current
+	dates, months , years, hours and minutes from the date class then computes according the ages  -->
+	<script type="text/javascript">
+		function getValues(){
+			var datelist = document.getElementById("dates")
+			var day = parseInt(datelist[datelist.selectedIndex].text)
+			var datelist = document.getElementById("months")
+			var month = datelist.selectedIndex + 1
+			var datelist = document.getElementById("years")
+			var year = parseInt(datelist[datelist.selectedIndex].text)
+			var today = new Date();
+			var dayNow = parseInt(today.getDate());
+			var monthNow = parseInt(today.getMonth()) + 1;
+			var yearNow = parseInt(today.getFullYear());
+			var totalBdayMonths = year * 12 + month - 1;
+			var totalTodayMonths = yearNow * 12 + monthNow - 1;
+			var monthDiff = parseInt(totalTodayMonths - totalBdayMonths);
+			var hoursNow = today.getHours();
+			var minutesNow = today.getMinutes();
+			var ageYear,ageMonth,ageDay; 
+			if( dayNow >= day){
+				ageYear = Math.floor(monthDiff / 12);
+				ageMonth = monthDiff%12;
+				ageDay = dayNow - day
+				var string = "";
+				var output1 = string.concat("You are: ",ageYear," Years, ",ageMonth," Months and " ,ageDay," Days old");
+				document.getElementById("age").value = output1
+				if(ageDay == 0){
+					monthDiff --;
+				}else{
+					ageDay --
+				}
+				var output2 = string.concat("You have been alive for ", monthDiff," Months, ", ageDay," Days, ", hoursNow ," Hours and ", minutesNow , " Minutes.");
+				document.getElementById("lifeLength").value = output2
+			}
+			else{
+				monthDiff --;
+				totalTodayMonths --;
+				ageYear = Math.floor(monthDiff / 12);
+				ageMonth = monthDiff%12;
+				if((month == 4) || (month == 6) || (month == 9) || (month == 11)){
+					ageDay = 30 - day + dayNow;		   	
+				}
+				else if((month == 2) && (ynow % 4 == 0)){
+					ageDay = 29 - day + dayNow;
+				}
+				else if((month == 2) && ynow % 4 != 0){
+					ageDay = 28 - day + dayNow;
+				}
+				else{
+					ageDay = 31 - day + dayNow;
+				}
+				var string = "";
+				var output = string.concat("You are: ",ageYear," Years ",ageMonth," Months and " ,ageDay," Days old");
+				document.getElementById("age").value = output
+				if(ageDay == 0){
+					monthDiff --;
+				}else{
+					ageDay --
+				}
+				var output2 = string.concat("You have been alive for ", monthDiff," Months ", ageDay," Days ", hoursNow ," Hours and ", minutesNow , " Minutes.");
+				document.getElementById("lifeLength").value = output2
+			}
+			getBdays(month, monthNow,yearNow, day, dayNow);
+		}
+	</script>
+<!-- 	Function that gets the number of days to the next birthday which is called from the getValues function and given the necessary arguments
+	to perform the task and display the results on the textbox -->
+	<script type="text/javascript">
+		function getBdays(month, mnow, ynow, day, dnow){
+			var daysToBday = 0;
+			var string1 = "";
+			if( month < mnow){
+				daysToBday = daysToDec(mnow, dnow, ynow)+ daysfromJan(month, day, ynow);
+				var output3 = string1.concat("Your Next Birthday is ",daysToBday, " Days away");
+			}
+			else if(month == mnow){
+				if( dnow < day){
+					daysToBday = day - dnow;
+					var output3 = string1.concat("Your Next Birthday is ",daysToBday, " Days away")
+				}else{
+					if( (ynow + 1) % 4 == 0){
+						daysToBday = 366 - (dnow - day);
+						var output3 = string1.concat("Your Next Birthday is ",daysToBday, " Days away")
+					}else{
+						daysToBday = 365 - (dnow - day);
+						var output3 = string1.concat("Your Next Birthday is ",daysToBday, " Days away")
+					}
+				}
+			}else{
+				daysToBday = daysToDec(mnow, dnow, ynow)- daysToDec(month, day, ynow);
+				var output3 = string1.concat("Your Next Birthday is ",daysToBday, " Days away")
+			}
+			document.getElementById("birthday").value = output3
+		}	
+	</script>
+<!-- 	this function computes the number of days from january first to the given date -->
+	<script type="text/javascript">
+		function daysfromJan(month,day,ynow){
+			var month1 = 1;
+			var days = 0;
+			while(month1 < month){
+				if((month1 == 4) || (month1 == 6) || (month1 == 9) || (month1 == 11)){
+					days = days + 30;		
+				}
+				else if((month1 == 2) && (ynow%4 == 0)){
+					days = days + 29;
+				}
+				else if((month1 == 2) && ynow%4 != 0){
+					days = days + 28;
+				}
+				else{
+					days = days + 31;
+				}
+				month1++;
+			}
+			days = days + day;
+			return days;
+		} 	
+	</script>
+	<!-- this function computes the number of days to the end of december for the current year depending on the arguments for month, day and year -->
+	<script type="text/javascript">
+		function daysToDec(month,day,ynow){
+			var month1 = month;
+			var days = 0;
+			if((month == 4) || (month == 6) || (month == 9) || (month == 11)){
+				days = days + 30 - day;			
+			}
+			else if((month == 2) && (ynow%4 == 0)){
+				days = days + 29 - day;
+			}
+			else if((month == 2) && ynow%4 != 0){
+				days = days + 28 - day;
+			}
+			else{
+				days = days + 31 - day;
+			}
+			month1 ++;
+			while(month1 < 13){
+				if((month1 == 4) || (month1 == 6) || (month1 == 9) || (month1 == 11)){
+					days = days + 30;		
+				}
+				else if((month1 == 2) && (ynow%4 == 0)){
+					days = days + 29;
+				}
+				else if((month1 == 2) && ynow%4 != 0){
+					days = days + 28;
+				}
+				else{
+					days = days + 31;
+				}
+				month1++;
+			}
+			return days;
+		}
+	</script>				
+	</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<body>
+	<!-- A heading for the page -->
+	<p>
+	<h3> Date Validation</h3>
+	</p>
+	<!-- Creating the textbox to receive the user input -->		
+	<p>
+	Enter the Date: <input type="text" id="inputdate"><br><br>
+	</p>
+	<!-- Creating a button to handle the click and call the validate function -->
+	<p>
+	
+	<button onClick = "test()" > Validate Date</button>
+	</p>
+	
+	<script type="text/javascript">
+	<!-- Function that carries out the date validation using the test method for a regular expression -->
+		function test(){
+			var date = document.getElementById("inputdate").value;				
+			
+			<!-- Date Pattern regular expression to check the date pattern -->
+			var datePattern =/^([0-3])?([0-9])[/-]([01])?([12])[/-]([0-9]{2})?([0-9]{2})?([0-9]{2})/;
+			
+			<!-- After the input is validated check for other constraints like case of leap year and varying days in february -->
+			if(datePattern.test(date)){				
+				if(date.search("-") != -1){
+					var dateArray = date.split("-");
+				}
+				else if(date.search("/") != -1){
+					var dateArray = date.split("/");
+				}
+				var day = parseInt(dateArray[0]);
+				var month = parseInt(dateArray[1]);
+				var year = parseInt(dateArray[2]);			
+				
+				if(month > 12 || month < 1){
+					alert("Please Enter th correct Month");
+				}
+				else if(day > 31 || day < 1){
+					alert("Please Enter the correct Date");
+				}
+				else if(month == 2 && year%4 == 0 && day > 29){
+					alert("Please Enter the correct Date for the month of February");
+				}
+				else if(month == 2 && year%4 != 0 && day > 28){
+					alert("Please Enter the correct Date for the month of February");
+				}
+				else{
+					var output = "";
+					output = output.concat("You Entered a Correct Date:\nDate:\t",day,"\nMonth:\t",month,"\nYear:\t",year);
+					alert(output);
+				}
+			}			
+			else{
+				alert("Please enter a valid date using hyphen(-) or slash(/)");
+			}	
+		}		
+	</script>
+	</body>
+</html>

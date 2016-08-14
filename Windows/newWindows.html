@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<form>
+	<p>Click the button to open a new browser window. <br/></p>
+	<p><input type="checkbox" id="openNewWindow" /> Open in a New Window </br></p>
+	<p><a href="http://www.google.com" onclick= "return newWindow('http://www.google.com')"> Google </a></p>
+	<p><a href="http://www.yahoo.com" onclick= "return newWindow('http://www.yahoo.com')"> Yahoo </a></p>
+	<p><a href="http://www.facebook.com" onclick= "return newWindow('http://www.facebook.com')"> Facebook </a></p>
+	<p><a href="http://www.twitter.com" onclick= "return newWindow('http://www.twitter.com')"> Twitter </a></p>
+	<p><a href="http://www.bbc.com" onclick= "return newWindow('http://www.bbc.com')"> BBC News </a></p>
+	
+	<!-- //Function to calculate and display shipping cost// -->
+	<script>
+	var newWindow;
+	function newWindow(linkTarget){
+		<!-- Read value from TextBox -->
+		if (document.getElementById("openNewWindow").checked == true){
+			newWindow = window.open(linkTarget, "New Window","toolbar=yes,menubar=yes,location=yes,scrollbars=yes,resizable=yes.width=400,height=375");
+			return false
+		}else{
+			return true
+		}
+	}
+	</script>
+
+</body>
+</html>

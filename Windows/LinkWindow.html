@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<form>
+	<!-- //Setting up a CheckBox// -->
+	<p><input type="checkbox" id="openNewWindow" /> Open in a New Window </br></p>
+	<!-- //Setting a the Links you are to click// -->
+	<p><a href="http://www.google.com" onclick= "return newWindow('http://www.google.com')"> Google </a></p>
+	<p><a href="http://www.yahoo.com" onclick= "return newWindow('http://www.yahoo.com')"> Yahoo </a></p>
+	<p><a href="http://www.facebook.com" onclick= "return newWindow('http://www.facebook.com')"> Facebook </a></p>
+	<p><a href="http://www.twitter.com" onclick= "return newWindow('http://www.twitter.com')"> Twitter </a></p>
+	<p><a href="" onclick= "document.open(); document.write("test"); document.close(); return false> BBC News </a></p>
+	
+	<!-- //Function to evaluate whether checkbox is checked or not to open in new window or same page// -->
+	<script>
+	function newWindow(linkTarget){
+		var newWindow;
+		<!-- Evaluate whether the checkbox is checked -->
+		if (document.getElementById("openNewWindow").checked == true){
+			newWindow = window.open(linkTarget, "New Window","toolbar=yes,menubar=yes,location=yes,scrollbars=yes,resizable=yes.width=400,height=375");
+			return false
+		}else{
+			return true
+		}
+	}
+	</script>
+
+</body>
+</html>

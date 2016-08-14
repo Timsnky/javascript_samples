@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<body>
+	<!-- Setting a heading for the webpage -->
+	<p>
+	<h3> User Challenge Questions </h3>
+	<p>
+	<h4> Please answer the following Challenge Questions appropriately </h4>
+	</p>
+	<p>
+	<!-- Creating the challenge questions with their corresponding textboxes and assigning
+	 an onkeypress event handler to the corresponding function -->
+	1. What is your Mother's Maiden name? <br><br>
+	<input type="text" onkeypress="return validateTextInput(event)" id="question1" style="width:200px"><br><br>
+	2. What is the name of your favorite pet? <br><br>
+	<input type="text" onkeypress="return validateTextInput(event)" id="question2" style="width:200px"><br><br>
+	3. What is the name of the City where you were born?<br><br>
+	<input type="text" onkeypress="return validateTextInput(event)" id="question3" style="width:200px"><br><br>
+	4. What was the name of your High School Mascot?<br><br>
+	<input type="text" onkeypress="return validateTextInput(event)" id="question4" style="width:200px"><br><br>
+	5. What is your Social Security Number?<br><br>
+	<input type="text" onkeypress="return validateDecimalInput(event)" id="question5" style="width:200px"><br><br>
+	6. How many Siblings do you have?<br><br>
+	<input type="text" onkeypress="return validateDecimalInput(event)" id="question6" style="width:200px"><br><br>
+	</p>	
+	
+	<script type="text/javascript">
+	<!-- Function to validate the text input in the textboxes ensuring only non numeric characters can be entered -->	
+		function validateTextInput(keyPressEvent){
+			var returnValue = true;
+			if(navigator.appName == "Microsoft Internet Explorer"){
+				var inputKey = keyPressEvent.keyCode;
+			}
+			else if(navigator.appName == "Netscape"){
+				var inputKey = keyPressEvent.charCode;
+			}
+			
+			var inputChar = String.fromCharCode(inputKey);
+			<!-- try block to validate the character using a regular expression -->	
+			try {
+				if (/\d/.test(inputChar)){
+					throw "You can only enter letters into this field.";
+				}				
+			}
+			catch(inputError){
+				window.alert(inputError);
+				returnValue = false;
+			}
+			finally {
+				return returnValue;
+			}
+		}	
+	</script>
+	
+	<script type="text/javascript">
+	<!-- Function to validate the numeric input in the textboxes ensuring only numeric and non-alphanumeric characters can be entered -->	
+		function validateDecimalInput(keyPressEvent){
+			var returnValue = true; 
+			
+			if(navigator.appName == "Microsoft Internet Explorer"){
+				var inputKey = keyPressEvent.keyCode;
+			}
+			else if(navigator.appName == "Netscape"){
+				var inputKey = keyPressEvent.charCode;
+			}
+			
+			var inputChar = String.fromCharCode(inputKey);
+			<!-- try block to validate the character using a regular expression -->	
+			try {
+				if (!/\d/.test(inputChar) && !/\W/.test(inputChar)){
+					throw "You can only enter numbers into this field";
+				}				
+			}
+			catch(inputError){
+				window.alert(inputError);
+				returnValue = false;
+			}
+			finally {
+				return returnValue;
+			}
+		}	
+	</script>
+	</body>	
+</html>

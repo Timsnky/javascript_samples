@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h3> Welcome to Galitos Pizza Restaurant </h3>
+	<p>
+	<h4> Select the Type of Pizza you Desire </h4>
+	<!-- Initialize the Radio Buttons and set up the onclick function when they are checked -->
+	<input type = "radio" name = "PizzaTypes" value = "vegetarian" id="veg" onclick = "myfunction()" /> Vegetarian <br/>
+	<input type = "radio" name = "PizzaTypes" value = "meatlovers" id="meat" onclick = "myfunction()" /> Meat Lovers <br/>
+	</p>
+	<p><h4> Select the Extra Topping you wish to be added to your Pizza </h4>
+	<!-- Initialize the Checkboxes and also set up the onclick function when they are checked -->
+	<input type = "checkbox" name = "Topping" value = "extra_cheese" id = "extraCheeseTopping" onclick = "myfunction()" /> Extra Cheese <br/>
+	<input type = "checkbox" name = "Topping" value = "mushrooms" id = "mushroomsToppng" onclick = "myfunction()" /> Mushrooms <br/>
+	<input type = "checkbox" name = "Topping" value = "anchovies" id = "anchoviesTopping" onclick = "myfunction()" /> Anchovies <br/>
+	</p>
+	<!-- Set up the textbox to hold the total pizza price depending on items checked above -->
+	<p> Total Price: <input type="decimal" id="totalPrice" style="text-align: right" ><br> </p>
+	
+	
+	<script>
+	function myfunction(){	
+		<!-- Define the various pizza and toppings prices -->
+		var vegetarianPizza = 20
+		var meatLoversPizza = 25
+		var extraCheeseTop = 5
+		var mushroomsTop = 6
+		var anchoviesTop = 7
+		<!-- set up the if statements to evaluate if a given input item is checked and thus update the total in the textbox accordingly -->
+		<!-- check if the vegetarian radiobutton is checked -->
+		if (document.getElementById("veg").checked == true){
+			document.getElementById("totalPrice").value = vegetarianPizza;		
+		}
+		<!-- check if the meat lovers radiobutton is checked -->
+		if (document.getElementById("meat").checked == true){
+			document.getElementById("totalPrice").value = meatLoversPizza;			
+		}
+		<!-- check if the extracheese topping checkbox is checked -->
+		if (document.getElementById("extraCheeseTopping").checked == true){
+			document.getElementById("totalPrice").value = parseFloat(document.getElementById("totalPrice").value) + extraCheeseTop ;
+			}
+		<!-- check if the mushrooms topping checkbox is checked -->
+		if (document.getElementById("mushroomsToppng").checked == true){
+			document.getElementById("totalPrice").value = parseFloat(document.getElementById("totalPrice").value) + mushroomsTop ;
+		}
+		<!-- check if the anchovies topping checkbox is checked -->
+		if (document.getElementById("anchoviesTopping").checked == true){
+			document.getElementById("totalPrice").value = parseFloat(document.getElementById("totalPrice").value) + anchoviesTop ;
+		}
+	}				
+	</script>
+
+</body>
+</html>

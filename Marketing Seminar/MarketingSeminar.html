@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<p>
+		<h2>Marketing Seminar Registration Form</h2>
+		</p>
+		<p>
+		<h3>Please provide the following details to facilitate your registration</h3>
+		</p>
+		<table>
+			<tr>
+				<td>Full Name</td>
+				<td><input type="text" id="name" style="width:300px"></td>
+			</tr>
+			<tr>
+				<td>ID Number</td>
+				<td><input type="text"  id="idNumber"></td>
+			</tr>
+			<tr>
+				<td>Phone Number</td>
+				<td><input type="text"  id="phone"></td>
+			</tr>
+			<tr>
+				<td>Email Address</td>
+				<td><input type="text"  id="email" style="width:200px"></td>
+			</tr>
+			<tr>
+				<td>Company Name</td>
+				<td><input type="text" id="company" style="width:300px"></td>
+			</tr>
+			<tr>
+				<td>City</td>
+				<td><input type="text" id="city"></td>
+			</tr>
+			<tr>
+				<td>State</td>
+				<td><input type="text" id="state"></td>
+			</tr>
+			<tr>
+				<td>Zip</td>
+				<td><input type="text" id="zip"></td>
+			</tr>
+		</table>
+		<p>
+		<button onClick = "submitData()" > Submit Data</button>
+		</p>
+		
+		<script type="text/javascript">
+			var expiryDate = new Date();
+			expiryDate.setDate(expiryDate.getDate() + 7);
+			function submitData(){
+				if(document.cookie){
+					var cookieString = decodeURIComponent(document.cookie);
+					var cookieArray = cookieString.split("; ");
+					var storedData;
+					for(var count = 0; count < cookieArray.length; count++){
+						storedData = cookieArray[count];
+						var storedName = storedData.split("=")[0];
+						var storedValue = storedData.split("=")[1];										
+						if(storedName == "name"){
+							if(storedValue == document.getElementById("name").value){
+								var confirmation = confirm("Do You Wish to Register Again?")
+								if(confirmation){
+									updateCookie();
+								}
+							}else{				
+								updateCookie();
+							}
+							break;
+						}
+					}						
+				}else{					
+					updateCookie();
+				}
+				clearData();
+			}
+		
+		</script>
+		
+		<script type="text/javascript">
+			function updateCookie(){
+				document.cookie = "name=" + encodeURIComponent(document.getElementById("name").value) + "; expires=" + expiryDate.toUTCString();
+				document.cookie = "idNumber=" + encodeURIComponent(document.getElementById("idNumber").value) + "; expires=" + expiryDate.toUTCString();
+				document.cookie = "phone=" + encodeURIComponent(document.getElementById("phone").value) + "; expires=" + expiryDate.toUTCString();
+				document.cookie = "email=" + encodeURIComponent(document.getElementById("email").value) + "; expires=" + expiryDate.toUTCString();
+				document.cookie = "company=" + encodeURIComponent(document.getElementById("company").value) + "; expires=" + expiryDate.toUTCString();
+				document.cookie = "city=" + encodeURIComponent(document.getElementById("city").value) + "; expires=" + expiryDate.toUTCString();
+				document.cookie = "state=" + encodeURIComponent(document.getElementById("state").value) + "; expires=" + expiryDate.toUTCString();
+				document.cookie = "zip=" + encodeURIComponent(document.getElementById("zip").value) + "; expires=" + expiryDate.toUTCString();
+			}
+		</script>
+		
+		<script type="text/javascript">
+			function clearData(){
+				document.getElementById("name").value = "";
+				document.getElementById("idNumber").value = "";
+				document.getElementById("phone").value = "";
+				document.getElementById("email").value = "";
+				document.getElementById("company").value = "";
+				document.getElementById("city").value = "";
+				document.getElementById("state").value = "";
+				document.getElementById("zip").value = "";
+			}
+		</script>
+				
+
+	</body>
+</html>
